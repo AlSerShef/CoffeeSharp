@@ -5,25 +5,29 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CoffeeSharp
 {
-    class FieldNode : INode<FieldDeclarationSyntax>
+    class FieldNode : IMemberData
 
     {
-        FieldDeclarationSyntax node;
+       FieldDeclarationSyntax node;
 
-        public FieldDeclarationSyntax Node
+       public FieldNode(FieldDeclarationSyntax node)
         {
-            get => node;
-            set => node = value;
+            this.node = node;
+        }
+       
+        public TypeSyntax TypeData
+        {
+            get => node.Declaration.Type;
         }
 
-         public SyntaxNode Parent
+        public string Name
         {
-            get => node.Parent;
+            get => node.ToString();
         }
 
-                 public SyntaxKind Kind
+        public SeparatedSyntaxList<VariableDeclarationSyntax> Value
         {
-            get => node.Kind();
+            get => node.Declaration.Variables;
         }
     }
 }

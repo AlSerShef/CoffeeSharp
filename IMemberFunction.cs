@@ -5,38 +5,38 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CoffeeSharp
 {
-    class IStructData 
+    class IMemberFunction
     {
+
+        TypeParameterListSyntax TypeParameter
+        {
+            get;
+        }
+
+        SyntaxTokenList TypeMember
+        {
+            get;
+        }
+
+        TypeSyntax ReturnTypeMember
+        {
+            get;
+        }
         
-        List<IMemberData> KindMemberData
-        {
-            get;
-        }
-
-        List<IMemberFunction> KindMemberFunction
-        {
-            get;
-        }
-
-        List<IStructData> KindStructData
-        {
-            get;
-        }
-
-
-        BaseListSyntax BaseExtend
-        {
-            get;
-        }
-
-        SyntaxTokenList AccessModifiers
-        {
-            get;
-        }
-
         string Name
         {
             get;
         }
+
+        SeparatedSyntaxList<ParameterSyntax> Parameter
+        {
+            get;
+        }
+
+        BlockSyntax BodyMember
+        {
+            get;
+        }
+
     }
 }

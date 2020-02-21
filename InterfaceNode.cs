@@ -5,26 +5,38 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CoffeeSharp
 {
-    class InterfaceNode : IStructData, INode<InterfaceDeclarationSyntax>
-
+    class InterfaceNode : IStructData
     {
-        InterfaceDeclarationSyntax node;
+        private InterfaceDeclarationSyntax node;
+        private List<IMemberData> kindMemberData;
+        private List<IMemberFunction> kindMemberFunction;
+        private List<IStructData> kindStructData;
 
-        public InterfaceDeclarationSyntax Node
+        public InterfaceNode(InterfaceDeclarationSyntax node)
         {
-            get => node;
-            set => node = value;
+            this.kindMemberData = new List<IMemberData>();
+            this.kindMemberFunction = new List<IMemberFunction>();
+            this.kindStructData = new List<IStructData>();
+            this.node = node;
         }
 
-         public SyntaxNode Parent
+
+        
+        public List<IMemberData> KindMemberData
         {
-            get => node.Parent;
+            get => kindMemberData;
         }
 
-         public SyntaxKind Kind
+        public List<IMemberFunction> KindMemberFunction
         {
-            get => node.Kind();
+            get => kindMemberFunction;
         }
+
+        public List<IStructData> KindStructData
+        {
+            get => kindStructData;
+        }
+
 
         public SyntaxTokenList AccessModifiers
         {
@@ -36,5 +48,9 @@ namespace CoffeeSharp
             get => node.Identifier.Text;
         }
 
+        public BaseListSyntax BaseExtend
+        {
+            get => node.BaseList;
+        }
     }
 }

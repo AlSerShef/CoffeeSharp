@@ -5,25 +5,44 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CoffeeSharp
 {
-    class IndexerNode : INode<IndexerDeclarationSyntax>
+    class IndexerNode : IMemberFunction
 
     {
         IndexerDeclarationSyntax node;
 
-        public IndexerDeclarationSyntax Node
+        public IndexerNode(IndexerDeclarationSyntax node)
         {
-            get => node;
-            set => node = value;
+            this.node = node;
         }
 
-        public SyntaxNode Parent
+        public TypeParameterListSyntax TypeParameter
         {
-            get => node.Parent;
+            get;
         }
 
-         public SyntaxKind Kind
+        public SyntaxTokenList TypeMember
         {
-            get => node.Kind();
+            get => node.Modifiers;
+        }
+
+        public TypeSyntax ReturnTypeMember
+        {
+            get;
+        }
+        
+        public string Name
+        {
+            get;
+        }
+
+        public SeparatedSyntaxList<ParameterSyntax> Parameter
+        {
+            get => node.ParameterList.Parameters;
+        }
+
+        public BlockSyntax BodyMember
+        {
+            get;
         }
     }
 }

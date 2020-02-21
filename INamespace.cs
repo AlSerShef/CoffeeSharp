@@ -5,20 +5,24 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CoffeeSharp
 {
-    interface INode<T>
-
+    class INamespace
     {
-        T Node
+        List<IStructData> StructData
         {
             get;
-            set;
         }
 
-        SyntaxNode Parent
+        List<INamespace> ParentNamespace
         {
             get;
         }
-         SyntaxKind Kind
+
+        List<INamespace> KindNamespace
+        {
+            get;
+        }
+
+        string Name
         {
             get;
         }

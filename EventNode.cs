@@ -5,24 +5,29 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CoffeeSharp
 {
-    class EventNode : INode<EventDeclarationSyntax>
+    class EventNode : IMemberData
 
     {
-        EventDeclarationSyntax node;
+        private EventDeclarationSyntax node;
 
-        public EventDeclarationSyntax Node
+        public EventNode(EventDeclarationSyntax node)
         {
-            get => node;
-            set => node = value;
+            this.node = node;
         }
-        public SyntaxNode Parent
+       
+        public TypeSyntax TypeData
         {
-            get => node.Parent;
+            get => node.Type;
         }
 
-                 public SyntaxKind Kind
+        public string Name
         {
-            get => node.Kind();
+            get => node.Identifier.Text;
+        }
+
+        public SeparatedSyntaxList<VariableDeclarationSyntax> Value
+        {
+            get;
         }
 
     }

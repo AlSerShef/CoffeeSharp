@@ -5,26 +5,44 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CoffeeSharp
 {
-    class NamespaceNode : INode<NamespaceDeclarationSyntax>
-
+    class NamespaceNode : INamespace
     {
-        NamespaceDeclarationSyntax node;
+        private NamespaceDeclarationSyntax node;
 
-        public NamespaceDeclarationSyntax Node
+        private List<INamespace> parentNamespace;
+        private List<INamespace> kindNamespace;
+        private List<IStructData> kneeStructData;
+
+        public NamespaceNode(NamespaceDeclarationSyntax node)
         {
-            get => node;
-            set => node = value;
+            this.parentNamespace = new List<INamespace>();
+            this.kindNamespace = new List<INamespace>();
+            this.kneeStructData = new List<IStructData>();
+            this.node = node;
         }
 
-   
+        public List<IStructData> StructData
+        {
+            get => kneeStructData;
+        }
 
-        public SyntaxNode Parent
+        public List<INamespace> ParentNamespace
         {
-            get => node.Parent;
+            get => parentNamespace;
         }
-        public SyntaxKind Kind
+
+        public List<INamespace> KindNamespace
         {
-            get => node.Kind();
+            get => kindNamespace;
         }
+
+        public string Name
+        {
+            get
+            {
+                return ((IdentifierNameSyntax)node.Name).Identifier.Text;
+            }
+        }
+
     }
 }

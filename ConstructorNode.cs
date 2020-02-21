@@ -5,23 +5,45 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CoffeeSharp
 {
-    class ConstructorNode : INode<ConstructorDeclarationSyntax>
+    class ConstructorNode : IMemberFunction
 
     {
-        ConstructorDeclarationSyntax node;
 
-        public ConstructorDeclarationSyntax Node
+        private ConstructorDeclarationSyntax node;
+
+        public ConstructorNode(ConstructorDeclarationSyntax node)
         {
-            get => node;
-            set => node = value;
+            this.node = node;
         }
-         public SyntaxNode Parent
+
+        public TypeParameterListSyntax TypeParameter
         {
-            get => node.Parent;
+            get;
         }
-                 public SyntaxKind Kind
+
+        public SyntaxTokenList TypeMember
         {
-            get => node.Kind();
+            get => node.Modifiers;
+        }
+
+        public TypeSyntax ReturnTypeMember
+        {
+            get;
+        }
+        
+        public string Name
+        {
+            get => node.Identifier.Text;
+        }
+
+        public SeparatedSyntaxList<ParameterSyntax> Parameter
+        {
+            get => node.ParameterList.Parameters;
+        }
+
+        public BlockSyntax BodyMember
+        {
+            get => node.Body;
         }
     }
 }

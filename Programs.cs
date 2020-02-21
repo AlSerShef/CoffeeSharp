@@ -2,10 +2,8 @@
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-
+using Newtonsoft.Json;
 namespace CoffeeSharp
 {
 
@@ -22,7 +20,10 @@ namespace CoffeeSharp
 
 namespace HelloWorld
 {
-public class ClassNode
+
+public interface INullInterface{}
+
+public class ClassNode : INullInterface
 {
     private int[]   mass = new int[2]{1,2};
 
@@ -85,64 +86,69 @@ public struct StructNode
         
 
             SyntaxTree tree = CSharpSyntaxTree.ParseText(code);
-            var root = (CompilationUnitSyntax)tree.GetRoot();
+            var root = (CompilationUnitSyntax)tree.GetCompilationUnitRoot();
 
             var walk = new WalkerCode();
             walk.Visit(root);
 
-            foreach(var usingNode in root.Usings)
-            {
-                Console.WriteLine($"using: {usingNode}");
-            }
+            // foreach(var usingNode in root.Usings)
+            // {
+            //     Console.WriteLine($"using: {usingNode}");
+            // }
 
-
+            string json = JsonConvert.SerializeObject(tree);     
+             using (StreamWriter sw = new StreamWriter(@"C:\Users\doty6\OneDrive\Документы\Project\CoffeeSharp\tree.json"))
+                {
+                    sw.WriteLine(json);
+                }
+           
             foreach(var elementNode in walk.NodeCode)
             {
-                if(elementNode is NamespaceDeclarationSyntax)
-                {
-                     var temp = (NamespaceDeclarationSyntax)elementNode;
-                     Console.WriteLine($"namespace\t{((IdentifierNameSyntax)temp.Name).Identifier.Text}");
-                }
+                // if(elementNode is NamespaceDeclarationSyntax)
+                // {
+                //      var temp = (NamespaceDeclarationSyntax)elementNode;
+                //      Console.WriteLine($"namespace\t{((IdentifierNameSyntax)temp.Name).Identifier.Text}");
+                // }
 
-                 if(elementNode is ClassDeclarationSyntax)
-                {
+                //  if(elementNode is ClassDeclarationSyntax)
+                // {
                      
-                     var temp = (ClassDeclarationSyntax)elementNode;
-                     Console.WriteLine($"{temp.Modifiers} class\t{temp.Identifier.Text}");
-                }
-                if(elementNode is StructDeclarationSyntax)
-                {
-                     var temp = (StructDeclarationSyntax)elementNode;
-                     Console.WriteLine($"struct\t{temp.Identifier.Text}");
-                }
-                if(elementNode is DelegateDeclarationSyntax)
-                {
-                    var temp = (DelegateDeclarationSyntax)elementNode;
-                     Console.WriteLine($"delegate\t{temp.Identifier.Text}");
-                }
+                //      var temp = (ClassDeclarationSyntax)elementNode;
+                //      Console.WriteLine($"{temp.BaseList}");
+                // }
+            //     if(elementNode is StructDeclarationSyntax)
+            //     {
+            //          var temp = (StructDeclarationSyntax)elementNode;
+            //          Console.WriteLine($"struct\t{temp.Identifier.Text}");
+            //     }
+            //     if(elementNode is DelegateDeclarationSyntax)
+            //     {
+            //         var temp = (DelegateDeclarationSyntax)elementNode;
+            //          Console.WriteLine($"delegate\t{temp.Identifier.Text}");
+            //     }
 
-                if(elementNode is InterfaceDeclarationSyntax)
-                {
-                    var temp = (InterfaceDeclarationSyntax)elementNode;
-                     Console.WriteLine($"interface\t{temp.Identifier.Text}");
-                }
-                 if(elementNode is EnumDeclarationSyntax)
-                {
-                     var temp = (EnumDeclarationSyntax)elementNode;
-                     Console.WriteLine($"enum\t{temp.Identifier.Text}");
-                }
+            //     if(elementNode is InterfaceDeclarationSyntax)
+            //     {
+            //         var temp = (InterfaceDeclarationSyntax)elementNode;
+            //          Console.WriteLine($"interface\t{temp.Identifier.Text}");
+            //     }
+            //      if(elementNode is EnumDeclarationSyntax)
+            //     {
+            //          var temp = (EnumDeclarationSyntax)elementNode;
+            //          Console.WriteLine($"enum\t{temp.Identifier.Text}");
+            //     }
 
-                 if(elementNode is MethodDeclarationSyntax)
-                {
-                     var temp = (MethodDeclarationSyntax)elementNode;
-                     Console.WriteLine($"method\t{temp.Identifier.Text}");
-                }
+            //      if(elementNode is MethodDeclarationSyntax)
+            //     {
+            //          var temp = (MethodDeclarationSyntax)elementNode;
+            //          Console.WriteLine($"method\t{temp.Identifier.Text}");
+            //     }
               
-               if(elementNode is PropertyDeclarationSyntax)
-                {
-                     var temp = (PropertyDeclarationSyntax)elementNode;
-                     Console.WriteLine($"property\t{temp.Identifier.Text}");
-                }
+            //    if(elementNode is PropertyDeclarationSyntax)
+            //     {
+            //          var temp = (PropertyDeclarationSyntax)elementNode;
+            //          Console.WriteLine($"property\t{temp.Identifier.Text}");
+            //     }
 
                 if(elementNode is FieldDeclarationSyntax)
                 {
@@ -153,17 +159,17 @@ public struct StructNode
                     
                 }
 
-                if(elementNode is ConstructorDeclarationSyntax)
-                {
-                     var temp = (ConstructorDeclarationSyntax)elementNode;
-                     Console.WriteLine($"constructor\t{temp.Identifier.Text}");
-                }
+            //     if(elementNode is ConstructorDeclarationSyntax)
+            //     {
+            //          var temp = (ConstructorDeclarationSyntax)elementNode;
+            //          Console.WriteLine($"constructor\t{temp.Identifier.Text}");
+            //     }
 
-                if(elementNode is IndexerDeclarationSyntax)
-                {
-                     var temp = (IndexerDeclarationSyntax)elementNode;
-                     Console.WriteLine($"indexer \t{temp.Type}");
-                }
+            //     if(elementNode is IndexerDeclarationSyntax)
+            //     {
+            //          var temp = (IndexerDeclarationSyntax)elementNode;
+            //          Console.WriteLine($"indexer \t{temp.Type}");
+            //     }
 
             }
 
