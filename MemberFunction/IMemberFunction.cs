@@ -8,12 +8,7 @@ namespace CoffeeSharp
     class IMemberFunction
     {
 
-        TypeParameterListSyntax TypeParameter
-        {
-            get;
-        }
-
-        SyntaxTokenList TypeMember
+        SyntaxTokenList AccessModifiers
         {
             get;
         }
@@ -37,6 +32,8 @@ namespace CoffeeSharp
         {
             get;
         }
+
+
 
     }
 }

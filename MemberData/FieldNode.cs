@@ -6,13 +6,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace CoffeeSharp
 {
     class FieldNode : IMemberData
-
     {
-       FieldDeclarationSyntax node;
+       private FieldDeclarationSyntax node;
 
        public FieldNode(FieldDeclarationSyntax node)
         {
             this.node = node;
+            
         }
        
         public TypeSyntax TypeData
@@ -20,14 +20,22 @@ namespace CoffeeSharp
             get => node.Declaration.Type;
         }
 
-        public string Name
+
+        public SyntaxTokenList AccessModifiers
         {
-            get => node.ToString();
+            get => node.Modifiers;
         }
 
-        public SeparatedSyntaxList<VariableDeclarationSyntax> Value
+
+        public string Value
         {
-            get => node.Declaration.Variables;
+            get => node.Declaration.Variables.First().Initializer?.Value.ToString();
+        }
+
+        
+        public string Name
+        {
+            get => node.Declaration.Variables.First().Identifier.ToString();
         }
     }
 }

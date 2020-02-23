@@ -13,17 +13,23 @@ namespace CoffeeSharp
             get;
         }
 
+        SyntaxTokenList AccessModifiers
+        {
+            get;
+        }
+
+
+        
+        string Value
+        {
+            get;
+        }
+
+        
         string Name
         {
             get;
         }
-
-        SeparatedSyntaxList<VariableDeclarationSyntax> Value
-        {
-            get;
-        }
-
-
 
     }
 }
