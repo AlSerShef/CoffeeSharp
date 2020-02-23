@@ -9,6 +9,7 @@ namespace CoffeeSharp
 {
     class WalkerCode : CSharpSyntaxWalker
     {
+        private  List<INamespace> @namespaces;
 
         readonly private List<NamespaceDeclarationSyntax> namespaceNode;
         readonly private List<ClassDeclarationSyntax> classNode;

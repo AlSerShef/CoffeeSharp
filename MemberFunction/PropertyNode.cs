@@ -15,10 +15,6 @@ namespace CoffeeSharp
             this.node = node;
         }
 
-        public TypeParameterListSyntax TypeParameter
-        {
-            get;
-        }
 
         public SyntaxTokenList TypeMember
         {
